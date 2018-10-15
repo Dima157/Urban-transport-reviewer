@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register', 'RegisterController@index');
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
 
-Route::post('/register/register', 'RegisterController@registerUser');
+Route::post('/register/register', 'Auth\RegisterController@register')->name('register');
+
+Route::get('/login', 'Auth\LoginController@showLoginForm');
+
+Route::post('/auth/login', 'Auth\LoginController@login')->name('login');
