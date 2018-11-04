@@ -22,3 +22,4 @@ Route::post('/register/register', 'Auth\RegisterController@register')->name('reg
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 
 Route::post('/auth/login', 'Auth\LoginController@login')->name('login');
+Route::post('/test', 'Auth\LoginController@test');
