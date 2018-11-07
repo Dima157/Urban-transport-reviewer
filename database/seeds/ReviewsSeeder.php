@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class TransportRouteNumbersSeeder extends Seeder
+class ReviewsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class TransportRouteNumbersSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\TransportRouteNumbers::class, 20)->create();
+        factory(\App\Reviews::class, 1000)->create();
     }
 }

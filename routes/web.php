@@ -23,3 +23,4 @@ Route::get('/login', 'Auth\LoginController@showLoginForm');
 
 Route::post('/auth/login', 'Auth\LoginController@login')->name('login');
 Route::post('/test', 'Auth\LoginController@test');
+Route::get('/reviews', 'ReviewsController@showReview');
