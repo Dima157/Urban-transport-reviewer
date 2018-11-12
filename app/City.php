@@ -4,11 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Carrier extends Model
+class City extends Model
 {
-    public $timestamps = false;
-    public $table = 'Carrier';
-    public $fillable = ['carrierName', 'carrierSurname', 'carrierPhoneNumber'];
+    public $table = 'City';
+
+    public function reviews()
+    {
+        return $this->hasMany(Reviews::class);
+    }
 
     public function transport()
     {
