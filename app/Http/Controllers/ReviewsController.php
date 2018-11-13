@@ -6,6 +6,7 @@ use App\City;
 use App\Exports\ReviewsExport;
 use App\Facades\CSVServiceFacade;
 use App\Reviews;
+use App\services\PythonScriptExec;
 use App\TransportProblems;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -25,6 +26,13 @@ class ReviewsController extends Controller
 
     public function saveReview(Request $r)
     {
+        try {
+            $r->file('car')->move(public_path('cars'), $r->file('car')->getClientOriginalName());
+            $image_path = $r->file('car')->getClientOriginalName();
+            $res = PythonScriptExec::exec(PythonScriptExec::DECTED_PLATES, $image_path);
+        }catch (\Throwable $e) {
+            echo $e->getMessage();
+        }
         $user_id = Auth::user()->id;
         $city_id = $r->city;
         $transport_id = $r->transport;

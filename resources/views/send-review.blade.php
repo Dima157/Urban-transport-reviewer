@@ -1,6 +1,6 @@
 @include('app')
 <div id="review">
-    <form action="{{ route('save_review') }}" method="post">
+    <form action="{{ route('save_review') }}" enctype="multipart/form-data" method="post">
         {{ csrf_field() }}
         <lable>Problems: </lable><select name="problem" id="problem">
             @foreach($problems as $problem)
@@ -16,9 +16,12 @@
         <lable>Transports: </lable>
 
         <select class='form-control' name="transport">
-            <option value='0' >Select Car number</option>
-            <option v-for='item in transport' :value='item.id'>@{{ item.carNumber }}</option>
-        </select>
+            <option value='0' >Select Car</option>
+            <option v-for='item in transport' :value='item.id'>@{{ item.routeNumber }} - @{{ item.carNumber }}</option>
+        </select> <br>
+
+        <lable>Upload car number photo: </lable>
+        <input type="file" name="car"> <br>
         <button type="submit">
             Send review
         </button>
