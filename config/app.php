@@ -160,6 +160,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CSVServeceProvider::class,
+        \App\Providers\GoogleCloudeVisionProvider::class,
+        \Illuminate\Foundation\Providers\ComposerServiceProvider::class
 
     ],
 
@@ -175,7 +177,7 @@ return [
     */
 
     'aliases' => [
-
+        'vision' => \App\Providers\GoogleCloudeVisionProvider::class,
         'Form' => Collective\Html\FormFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facebook\FacebookService;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -39,6 +41,40 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    public function getToken(Request $r)
+    {
+        $facebook = FacebookService::getClient();
+        $code = $r->get('code');
+        if(empty($code)){
+            echo 'empty code';
+        }
+        $provider = $facebook->getProvider();
+        $token = $provider->getAccessToken('authorization_code', [
+            'code' => $code
+        ]);
+        $user = $provider->getResourceOwner($token);
+        $this->saveUser($user);
+    }
+
+    private function saveUser($user)
+    {   if(!User::where('email', $user->getEmail())) {
+            User::create([
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'password' => '123'
+            ]);
+        }
+        echo '1';
+        return view('register-facebook', ['email' => $user->getEmail()]);
+    }
+
+    public function savePass(Request $r)
+    {
+        $user = User::where('email', $r->email)->get();
+        $user->password = password_hash($r->pass);
+        redirect('/');
     }
 
     /**

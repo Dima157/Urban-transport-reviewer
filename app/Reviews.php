@@ -8,11 +8,10 @@ class Reviews extends Model
 {
     public $timestamps = false;
     public $table = 'Reviews';
-    public $fillable = ['user_id', 'city_id', 'problem_id', 'transport_id', 'dataReview'];
+    public $fillable = ['user_id', 'city_id', 'problem_id', 'transport_id', 'dataReview', 'location', 'textReview', 'lat', 'lng'];
 
-    public function __construct($user_id, $city_id, $problem_id, $transport_id, $dateReview, $timeReview, $location, array $attributes = [])
+    public function setData($user_id, $city_id, $problem_id, $transport_id, $dateReview, $timeReview, $location, $text, $lat, $lng)
     {
-        parent::__construct($attributes);
         $this->user_id = $user_id;
         $this->city_id = $city_id;
         $this->problem_id = $problem_id;
@@ -20,11 +19,19 @@ class Reviews extends Model
         $this->dateReview = $dateReview;
         $this->timeReview = $timeReview;
         $this->location = $location;
+        $this->textReview = $text;
+        $this->lat = $lat;
+        $this->lng = $lng;
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function photo()
+    {
+        return $this->belongsToMany(Photo::class);
     }
 
     public function problem()

@@ -47,19 +47,6 @@ def validate_contour(contour, img, aspect_ratio_range, area_range):
     return output
 
 
-def deg_to_rad(angle):
-    return angle * np.pi / 180.0
-
-
-def rad_to_deg(angle):
-    return angle * 180 / np.pi
-
-
-def enhance(img):
-    kernel = np.array([[-1, 0, 1], [-2, 0, 2], [1, 0, 1]])
-    return cv2.filter2D(img, -1, kernel)
-
-
 def process_image(name, debug, **options):
     se_shape = (16, 4)
 
@@ -150,6 +137,5 @@ def process_image(name, debug, **options):
 data = json.loads(base64.b64decode(sys.argv[1]))
 path = str(data['img'])
 real_path = 'C:/Program Files/OSPanel/domains/Urban-transport-reviewer/public/cars/' + path
-t1 = time.time()
 o1 = process_image(real_path, 0, type='rect')
-cv2.imwrite('%s-detected.png' % path[:path.rfind('.')], o1)
+process_image
