@@ -61,7 +61,7 @@
 <div id="review">
     <form action="{{ route('save_review') }}" enctype="multipart/form-data" method="post">
         {{ csrf_field() }}
-        <lable>Cities: </lable><select name="city" class='form-control' id="city" v-model="city" @change='getTransport'>
+        <lable>Cities: </lable><select name="city" class='form-control' id="city" v-model="city" @change='пше '>
             <option value='0' selected="selected">Select City</option>
             @foreach($cities as $city)
                 <option value="{{ $city->id }}">{{ $city->cityName }}</option>
