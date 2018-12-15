@@ -32,34 +32,28 @@ def build_graphic():
     df = df.replace({'shape': None}, 'unknown')
 
 
-    country_label_count = pd.value_counts(
-        df['Carrier'].values)
-
-    country_count = pd.value_counts(df['Carrier'].values, sort=True)
-    country_count_keys, country_count_values = dict_sort(dict(country_count))
-    TOP_COUNTRY = len(country_count_keys)
-    plt.title('Reviews for all time', fontsize=PLOT_LABEL_FONT_SIZE)
-    plt.bar(np.arange(TOP_COUNTRY), country_count_values, color=getColors(TOP_COUNTRY))
-    plt.xticks(np.arange(TOP_COUNTRY), country_count_keys, rotation=90, fontsize=10)
-    plt.yticks(fontsize=PLOT_LABEL_FONT_SIZE)
-    plt.ylabel('Count reviews', fontsize=PLOT_LABEL_FONT_SIZE)
+     carrier_count = pd.value_counts(df['Carrier'].values, sort=True)
+     carrier_count_keys, Carrier_count_values = dict_sort(dict(carrier_count))
+     TOP = len(carrier_count_keys)
+     plt.title('Reviews for all time', fontsize=PLOT_LABEL_FONT_SIZE)
+     plt.bar(np.arange(TOP), Carrier_count_values, color=getColors(TOP))
+     plt.xticks(np.arange(TOP), carrier_count_keys, rotation=90, fontsize=10)
+     plt.yticks(fontsize=PLOT_LABEL_FONT_SIZE)
+     plt.ylabel('Count reviews', fontsize=PLOT_LABEL_FONT_SIZE)
     f.savefig("C:/Program Files/OSPanel/domains/Urban-transport-reviewer/public/graphics/all.pdf", bbox_inches='tight')
 
 def build_graphic_date(dateStart, dateEnd):
     f = plt.figure()
     df = pd.read_csv("C:/Program Files/OSPanel/domains/Urban-transport-reviewer/storage/app/review.csv", escapechar='`', low_memory=False)
     mask = (df['Date'] > dateStart) & (df['Date'] <= dateEnd)
-
-    country_label_count = pd.value_counts(df.loc[mask]['Carrier'].values)
-    country_count = pd.value_counts(df.loc[mask]['Carrier'].values, sort=True)
-    country_count_keys, country_count_values = dict_sort(dict(country_count))
-    TOP_COUNTRY = len(country_count_keys)
+    carrier_count = pd.value_counts(df.loc[mask]['Carrier'].values, sort=True)
+    carrier_count_keys, carrier_count_values = dict_sort(dict(carrier_count))
+    TOP = len(carrier_count_keys)
     plt.title('Reviews from ' + str(dateStart) + ' to ' + str(dateEnd), fontsize=PLOT_LABEL_FONT_SIZE)
-    plt.bar(np.arange(TOP_COUNTRY), country_count_values, color=getColors(TOP_COUNTRY))
-    plt.xticks(np.arange(TOP_COUNTRY), country_count_keys, rotation=90, fontsize=10)
+    plt.bar(np.arange(TOP), carrier_count_values)
+    plt.xticks(np.arange(TOP), carrier_count_keys, rotation=90, fontsize=10)
     plt.yticks(fontsize=PLOT_LABEL_FONT_SIZE)
-    plt.ylabel('Count reviews', fontsize=PLOT_LABEL_FONT_SIZE)
-    f.savefig("C:/Program Files/OSPanel/domains/Urban-transport-reviewer/public/graphics/date.pdf", bbox_inches='tight')
+    plt.ylabel('Count of problems', fontsize=PLOT_LABEL_FONT_SIZE)
 data = json.loads(base64.b64decode(sys.argv[1]))
 if data['type'] == 'date':
     build_graphic_date(data['dateStart'], data['dateEnd'])

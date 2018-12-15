@@ -91,10 +91,10 @@
 
 <div class="data_wrapper">
     {{--<div id="allData">Get graphic</div>--}}
-    <button type="button" class="btn btn-secondary">Get graphic</button>
+    <button type="button" id="allData" class="btn btn-secondary">Get graphic</button>
     <div class="data_by_date">
         {{--<div id="allByDate"class="">Get graphic by date</div>--}}
-        <button type="button" class="btn btn-secondary">Get graphic by date</button>
+        <button type="button" id="allByDate" class="btn btn-secondary">Get graphic by date</button>
         From: <input type="date"name="date_start" class="input_form">
         To: <input type="date"name="date_end" class="input_form">
     </div>
